@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WeatherService.Interfaces;
+﻿using WeatherService.Interfaces;
 using WeatherService.Models;
 
 namespace WeatherService.Services.Bots

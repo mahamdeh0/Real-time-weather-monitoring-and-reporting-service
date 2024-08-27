@@ -4,7 +4,7 @@ namespace WeatherService.Interfaces
 {
     public interface IWeatherBot
     {
-       public void Activate(WeatherData weatherData);
-
+        void Activate(WeatherData weatherData);
     }
+
 }
