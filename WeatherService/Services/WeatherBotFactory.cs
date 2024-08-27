@@ -1,33 +1,33 @@
 ﻿using WeatherService.Interfaces;
-using WeatherService.Models.Enums;
 using WeatherService.Models;
+using WeatherService.Models.Enums;
 using WeatherService.Services.Bots;
 
-namespace WeatherService.Services
+public class WeatherBotFactory : IWeatherBotFactory
 {
-    public class WeatherBotFactory : IWeatherBotFactory
+    private readonly Dictionary<weatherbots, BotConfiguration> _botConfigurations;
+
+    public WeatherBotFactory(Dictionary<weatherbots, BotConfiguration> botConfigurations)
     {
-        private readonly BotConfiguration _config;
-
-        public WeatherBotFactory(BotConfiguration config)
-        {
-            _config = config;
-        }
-
-        public IWeatherBot CreateBot(weatherbots botType)
-        {
-            switch (botType)
-            {
-                case weatherbots.RainBot:
-                    return new RainBot(_config.Threshold, _config.Message);
-                case weatherbots.SunBot:
-                    return new SunBot(_config.Threshold, _config.Message);
-                case weatherbots.SnowBot:
-                    return new SnowBot(_config.Threshold, _config.Message);
-                default:
-                    throw new ArgumentException("Invalid bot type");
-            }
-        }
+        _botConfigurations = botConfigurations;
     }
 
+    public IWeatherBot CreateBot(weatherbots botType)
+    {
+        if (!_botConfigurations.ContainsKey(botType))
+            throw new ArgumentException("Invalid bot type");
+
+        var config = _botConfigurations[botType];
+        switch (botType)
+        {
+            case weatherbots.RainBot:
+                return new RainBot(config.Threshold, config.Message);
+            case weatherbots.SunBot:
+                return new SunBot(config.Threshold, config.Message);
+            case weatherbots.SnowBot:
+                return new SnowBot(config.Threshold, config.Message);
+            default:
+                throw new ArgumentException("Invalid bot type");
+        }
+    }
 }
