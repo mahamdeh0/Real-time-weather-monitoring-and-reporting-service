@@ -4,7 +4,7 @@ namespace WeatherService.Interfaces
 {
     public interface IWeatherBotFactory
     {
-        IWeatherBot CreateBot(weatherbots BotType);
+        IWeatherBot CreateBot(Weatherbots BotType);
 
     }
 }

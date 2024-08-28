@@ -1,6 +1,6 @@
 ﻿namespace WeatherService.Models.Enums
 {
-    public enum weatherbots
+    public enum Weatherbots
     {
         RainBot,
         SunBot,

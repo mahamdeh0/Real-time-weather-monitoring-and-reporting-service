@@ -8,11 +8,20 @@ namespace WeatherService.Services
     {
         public WeatherData Convert(string inputData)
         {
-            var serializer = new XmlSerializer(typeof(WeatherData));
-            using (var reader = new StringReader(inputData))
+            try
             {
-                return (WeatherData)serializer.Deserialize(reader);
+                var serializer = new XmlSerializer(typeof(WeatherData));
+                using (var reader = new StringReader(inputData))
+                {
+                    return (WeatherData)serializer.Deserialize(reader);
+                }
             }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Error: Failed to deserialize XML. {ex.Message}");
+                return null;
+            }
+
         }
     }
 }
