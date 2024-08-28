@@ -5,14 +5,14 @@ using WeatherService.Services.Bots;
 
 public class WeatherBotFactory : IWeatherBotFactory
 {
-    private readonly Dictionary<weatherbots, BotConfiguration> _botConfigurations;
+    private readonly Dictionary<Weatherbots, BotConfiguration> _botConfigurations;
 
-    public WeatherBotFactory(Dictionary<weatherbots, BotConfiguration> botConfigurations)
+    public WeatherBotFactory(Dictionary<Weatherbots, BotConfiguration> botConfigurations)
     {
         _botConfigurations = botConfigurations;
     }
 
-    public IWeatherBot CreateBot(weatherbots botType)
+    public IWeatherBot CreateBot(Weatherbots botType)
     {
         if (!_botConfigurations.ContainsKey(botType))
             throw new ArgumentException("Invalid bot type");
@@ -20,11 +20,11 @@ public class WeatherBotFactory : IWeatherBotFactory
         var config = _botConfigurations[botType];
         switch (botType)
         {
-            case weatherbots.RainBot:
+            case Weatherbots.RainBot:
                 return new RainBot(config.Threshold, config.Message);
-            case weatherbots.SunBot:
+            case Weatherbots.SunBot:
                 return new SunBot(config.Threshold, config.Message);
-            case weatherbots.SnowBot:
+            case Weatherbots.SnowBot:
                 return new SnowBot(config.Threshold, config.Message);
             default:
                 throw new ArgumentException("Invalid bot type");
